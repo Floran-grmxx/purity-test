@@ -7,6 +7,17 @@ sans tabou. **Haut = expérimenté**, bas = innocent.
 100 % côté client : aucune donnée n'est envoyée, aucun compte. La progression
 est sauvegardée en `localStorage` et le partage passe par un lien encodé.
 
+▶️ [Essayer en ligne](https://floran-grmxx.github.io/purity-test/)
+
+## Captures
+
+<p align="center">
+  <img src="docs/screenshots/01-home.png" width="250" alt="Écran d'accueil">
+  <img src="docs/screenshots/02-categories.png" width="250" alt="Choix des catégories avec la progression">
+  <img src="docs/screenshots/03-question.png" width="250" alt="Écran de question">
+  <img src="docs/screenshots/04-results.png" width="250" alt="Score global et détail par catégorie">
+</p>
+
 ## Scoring
 
 - Chaque catégorie : `points obtenus / points max × 100` → **/100**.
