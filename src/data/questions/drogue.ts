@@ -13,7 +13,7 @@ export const drogueQuestions: Question[] = [
   },
   {
     id: "drogue-02",
-    text: "À quelle fréquence fumes-tu du cannabis (joint, pétard) ?",
+    text: "Au plus fort de ta consommation, à quelle fréquence fumais-tu du cannabis (joint, pétard) ?",
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une seule fois dans ma vie", points: 1 },
@@ -26,11 +26,14 @@ export const drogueQuestions: Question[] = [
   {
     id: "drogue-03",
     text: "As-tu déjà fumé du cannabis dès le réveil, à jeun ?",
-    requires: { question: "drogue-02", minAnswerIndex: 1 },
+    requires: { question: "drogue-02", minAnswerIndex: 2 },
+    answerLimits: [
+      { question: "drogue-02", allowed: { 2: [0, 1, 2], 3: [0, 1, 2], 4: [0, 1, 2] } },
+    ],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "De temps en temps", points: 4 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 4 },
       { label: "C'est une routine quotidienne", points: 5 },
     ],
   },
@@ -39,9 +42,9 @@ export const drogueQuestions: Question[] = [
     text: "As-tu déjà pris des drogues de synthèse (3-MMC, cathinones, « research chemicals »…) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Quelques fois", points: 4 },
-      { label: "Régulièrement", points: 6 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 4 },
+      { label: "Plus de 10 fois", points: 6 },
     ],
   },
   {
@@ -49,19 +52,19 @@ export const drogueQuestions: Question[] = [
     text: "As-tu déjà mélangé alcool et médicaments (somnifères, anxiolytiques…) pour l'effet ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Régulièrement", points: 4 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   {
     id: "drogue-06",
-    text: "As-tu déjà inhalé du protoxyde d'azote (ballons, proto) ou des poppers ?",
+    text: "As-tu déjà inhalé du protoxyde d'azote (ballons, proto) ou du poppers ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois pour essayer", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Régulièrement", points: 3 },
+      { label: "1 fois pour essayer", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -69,8 +72,8 @@ export const drogueQuestions: Question[] = [
     text: "As-tu déjà consommé des drogues festives (MDMA, ecstasy, cocaïne…) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Quelques fois", points: 4 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 4 },
       { label: "Chaque mois", points: 5 },
       { label: "Chaque semaine", points: 6 },
     ],
@@ -88,8 +91,11 @@ export const drogueQuestions: Question[] = [
   },
   {
     id: "drogue-09",
-    text: "Avec quelle régularité ressors-tu ce genre de produit en soirée ?",
+    text: "Au plus fort de ta consommation, avec quelle régularité en prenais-tu en soirée ?",
     requires: { question: "drogue-07", minAnswerIndex: 2 },
+    answerLimits: [
+      { question: "drogue-07", allowed: { 2: [0, 1], 3: [1, 2], 4: [2, 3] } },
+    ],
     answers: [
       { label: "Seulement dans des occasions exceptionnelles", points: 2 },
       { label: "Quelques fois par an", points: 4 },
@@ -102,9 +108,9 @@ export const drogueQuestions: Question[] = [
     text: "As-tu déjà sniffé de la cocaïne ou pris de la kétamine ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois pour goûter", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Régulièrement", points: 4 },
+      { label: "1 fois pour goûter", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   {
@@ -112,9 +118,9 @@ export const drogueQuestions: Question[] = [
     text: "As-tu déjà pris des psychédéliques (LSD, champignons hallucinogènes) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Un seul trip", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Souvent", points: 4 },
+      { label: "1 seul trip", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   {
@@ -122,9 +128,9 @@ export const drogueQuestions: Question[] = [
     text: "As-tu déjà consommé des amphétamines ou du speed pour tenir le rythme ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Régulièrement", points: 4 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   {
@@ -132,15 +138,18 @@ export const drogueQuestions: Question[] = [
     text: "As-tu déjà touché à des drogues dures (héroïne, crack…) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 3 },
-      { label: "Quelques fois", points: 5 },
-      { label: "Régulièrement", points: 6 },
+      { label: "1 fois", points: 3 },
+      { label: "2 à 10 fois", points: 5 },
+      { label: "Plus de 10 fois", points: 6 },
     ],
   },
   {
     id: "drogue-14",
     text: "Sous quelle forme as-tu déjà consommé ce type de produit ?",
     requires: { question: "drogue-13", minAnswerIndex: 1 },
+    answerLimits: [
+      { question: "drogue-13", allowed: { 1: [0, 2], 2: [1, 2], 3: [1, 2] } },
+    ],
     answers: [
       { label: "Sniffé ou fumé une fois", points: 3 },
       { label: "Fumé à plusieurs reprises", points: 5 },
@@ -163,30 +172,9 @@ export const drogueQuestions: Question[] = [
     ],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
       { label: "Souvent, ça fait partie du plan", points: 4 },
-    ],
-  },
-  {
-    id: "drogue-16",
-    text: "Combien de substances différentes as-tu déjà essayées au total ?",
-    onlyIf: [
-      { question: "drogue-02", minAnswerIndex: 1 },
-      { question: "drogue-26", minAnswerIndex: 1 },
-      { question: "drogue-05", minAnswerIndex: 1 },
-      { question: "drogue-06", minAnswerIndex: 1 },
-      { question: "drogue-07", minAnswerIndex: 1 },
-      { question: "drogue-10", minAnswerIndex: 1 },
-      { question: "drogue-11", minAnswerIndex: 1 },
-      { question: "drogue-12", minAnswerIndex: 1 },
-      { question: "drogue-13", minAnswerIndex: 1 },
-    ],
-    answers: [
-      { label: "Une", points: 1 },
-      { label: "Deux ou trois", points: 2 },
-      { label: "Quatre à six", points: 3 },
-      { label: "Plus que je ne peux compter", points: 4 },
     ],
   },
   {
@@ -205,9 +193,9 @@ export const drogueQuestions: Question[] = [
     ],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Régulièrement", points: 4 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   {
@@ -226,8 +214,8 @@ export const drogueQuestions: Question[] = [
     ],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
       { label: "C'est devenu habituel", points: 3 },
     ],
   },
@@ -267,6 +255,9 @@ export const drogueQuestions: Question[] = [
     id: "drogue-21",
     text: "Quelle ampleur ce business a-t-il pris ?",
     requires: { question: "drogue-20", minAnswerIndex: 1 },
+    answerLimits: [
+      { question: "drogue-20", allowed: { 1: [0, 1], 2: [1, 2], 3: [2, 3] } },
+    ],
     answers: [
       { label: "Juste rendre service, sans profit", points: 2 },
       { label: "De quoi payer ma propre conso", points: 4 },
@@ -332,9 +323,9 @@ export const drogueQuestions: Question[] = [
     ],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Régulièrement", points: 4 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   {

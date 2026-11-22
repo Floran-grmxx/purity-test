@@ -49,6 +49,7 @@ describe("question banks integrity", () => {
           for (const a of q.answers) {
             expect(Number.isFinite(a.points)).toBe(true);
             expect(a.points).toBeGreaterThanOrEqual(0);
+            if (a.notApplicable) expect(a.points).toBe(0);
             expect(a.label.trim().length).toBeGreaterThan(0);
           }
         }
@@ -71,6 +72,26 @@ describe("question banks integrity", () => {
             // threshold must point at a real, non-innocent answer of the gateway
             expect(gate.minAnswerIndex).toBeGreaterThanOrEqual(1);
             expect(gate.minAnswerIndex).toBeLessThan(gateCount as number);
+          }
+          seen.set(q.id, q.answers.length);
+        }
+      });
+
+      it("answer limits reference an earlier question and real answer indices", () => {
+        const seen = new Map<string, number>(); // id -> answers count
+        for (const q of category.questions) {
+          for (const limit of q.answerLimits ?? []) {
+            const gatewayCount = seen.get(limit.question);
+            expect(gatewayCount).toBeDefined();
+            for (const [key, indices] of Object.entries(limit.allowed)) {
+              expect(Number(key)).toBeGreaterThanOrEqual(0);
+              expect(Number(key)).toBeLessThan(gatewayCount as number);
+              expect(indices.length).toBeGreaterThan(0);
+              for (const i of indices) {
+                expect(i).toBeGreaterThanOrEqual(0);
+                expect(i).toBeLessThan(q.answers.length);
+              }
+            }
           }
           seen.set(q.id, q.answers.length);
         }

@@ -2,6 +2,7 @@ import { Navigate, useSearchParams } from "react-router-dom";
 import { categories } from "../data/categories";
 import { getProfile } from "../lib/scoring";
 import { decodeResult } from "../lib/share";
+import { buildPortrait } from "../lib/portrait";
 import { Page } from "../components/Page";
 import { Button } from "../components/Button";
 import { ScoreRing } from "../components/ScoreRing";
@@ -18,6 +19,7 @@ export function SharedResult() {
   const maxTotal = categories.length * 100;
   const total = categories.reduce((sum, c) => sum + (scores[c.id] ?? 0), 0);
   const profile = getProfile(total);
+  const portrait = buildPortrait(scores, undefined, "shared");
 
   return (
     <Page>
@@ -45,6 +47,13 @@ export function SharedResult() {
           />
         ))}
       </div>
+
+      <section className="mt-6 space-y-3 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 text-[0.95rem] leading-relaxed">
+        <h2 className="text-lg font-bold">Portrait</h2>
+        {portrait.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </section>
 
       <div className="mt-8">
         <Button to="/" full>

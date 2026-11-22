@@ -5,7 +5,7 @@ import type {
   CategoryId,
 } from "../data/types";
 import { categories } from "../data/categories";
-import { visibleQuestions } from "./questions";
+import { sanitizeAnswers, visibleQuestions } from "./questions";
 
 export interface CategoryResult {
   id: CategoryId;
@@ -60,16 +60,29 @@ export function categoryEarnedPoints(
   }, 0);
 }
 
+/** Max points of the visible questions answered "not concerned". */
+export function notApplicablePoints(
+  category: Category,
+  answers: CategoryAnswers,
+): number {
+  return visibleQuestions(category, answers).reduce((sum, q) => {
+    const idx = answers[q.id];
+    if (idx == null || !q.answers[idx]?.notApplicable) return sum;
+    return sum + q.answers.reduce((m, a) => Math.max(m, a.points), 0);
+  }, 0);
+}
+
 export function scoreCategory(
   category: Category,
-  answers: CategoryAnswers = {},
+  rawAnswers: CategoryAnswers = {},
 ): CategoryResult {
+  const answers = sanitizeAnswers(category, rawAnswers);
   // Progress and completion track the questions currently unlocked; the score
   // denominator stays the full bank (cumulative model).
   const visible = visibleQuestions(category, answers);
   const total = visible.length;
   const answered = visible.filter((q) => answers[q.id] != null).length;
-  const max = categoryMaxPoints(category);
+  const max = categoryMaxPoints(category) - notApplicablePoints(category, answers);
   const earned = categoryEarnedPoints(category, answers);
   const score = max > 0 ? Math.round((earned / max) * 100) : 0;
   return {

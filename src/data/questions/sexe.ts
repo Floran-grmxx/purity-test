@@ -26,7 +26,7 @@ export const sexeQuestions: Question[] = [
   },
   {
     id: "sexe-03",
-    text: "À quelle fréquence as-tu des rapports sexuels en ce moment ?",
+    text: "À ta période la plus active, à quelle fréquence avais-tu des rapports sexuels ?",
     onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
@@ -41,9 +41,9 @@ export const sexeQuestions: Question[] = [
     text: "As-tu déjà donné ou reçu un rapport oral (fellation, cunnilingus) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Régulièrement", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -52,8 +52,8 @@ export const sexeQuestions: Question[] = [
     onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Moins de 10 fois", points: 2 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
       { label: "Plus de 10 fois", points: 3 },
     ],
   },
@@ -62,15 +62,18 @@ export const sexeQuestions: Question[] = [
     text: "As-tu déjà utilisé un sex-toy, seul·e ou à deux ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois pour essayer", points: 1 },
-      { label: "Plusieurs fois", points: 2 },
-      { label: "Régulièrement", points: 3 },
+      { label: "1 fois pour essayer", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
     id: "sexe-07",
     text: "Combien de coups d'un soir (rapport le soir même de la rencontre) as-tu eus ?",
     onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
+    answerLimits: [
+      { question: "sexe-02", allowed: { 0: [0, 1, 2], 1: [0, 1, 2, 3] } },
+    ],
     answers: [
       { label: "Aucun", points: 0 },
       { label: "Un seul", points: 1 },
@@ -116,9 +119,9 @@ export const sexeQuestions: Question[] = [
     onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -126,9 +129,9 @@ export const sexeQuestions: Question[] = [
     text: "As-tu déjà eu une relation sexuelle à distance (webcam, téléphone, messages explicites en direct) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Régulièrement", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -146,9 +149,9 @@ export const sexeQuestions: Question[] = [
     text: "As-tu déjà concrétisé un fantasme avec déguisement ou jeu de rôle (uniforme, scénario…) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -156,9 +159,9 @@ export const sexeQuestions: Question[] = [
     text: "As-tu déjà fréquenté un club libertin ou participé à une soirée échangiste ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois pour voir", points: 1 },
-      { label: "Plusieurs fois", points: 2 },
-      { label: "Régulièrement", points: 3 },
+      { label: "1 fois pour voir", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -166,8 +169,8 @@ export const sexeQuestions: Question[] = [
     text: "As-tu déjà essayé le BDSM (attaches, fessées, domination, soumission…) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois, pour voir", points: 2 },
-      { label: "Plusieurs fois", points: 4 },
+      { label: "1 fois, pour voir", points: 2 },
+      { label: "2 à 10 fois", points: 4 },
       { label: "C'est clairement mon truc", points: 6 },
     ],
   },
@@ -176,6 +179,9 @@ export const sexeQuestions: Question[] = [
     id: "sexe-17",
     text: "Jusqu'où es-tu allé·e dans le BDSM ?",
     requires: { question: "sexe-16", minAnswerIndex: 1 },
+    answerLimits: [
+      { question: "sexe-16", allowed: { 3: [1, 2, 3] } },
+    ],
     answers: [
       { label: "Jeux légers (foulard, fessées douces)", points: 1 },
       { label: "Accessoires, jeux de rôle de domination", points: 3 },
@@ -187,6 +193,9 @@ export const sexeQuestions: Question[] = [
     id: "sexe-18",
     text: "Quel rôle endosses-tu le plus souvent en BDSM ?",
     requires: { question: "sexe-16", minAnswerIndex: 2 },
+    answerLimits: [
+      { question: "sexe-16", allowed: { 2: [0, 1], 3: [1, 2] } },
+    ],
     answers: [
       { label: "Plutôt curieux·se, je teste les deux", points: 2 },
       { label: "Un rôle marqué (dominant·e ou soumis·e)", points: 4 },
@@ -199,9 +208,9 @@ export const sexeQuestions: Question[] = [
     onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Plusieurs fois", points: 4 },
-      { label: "Beaucoup, c'est récurrent", points: 6 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 4 },
+      { label: "Plus de 10 fois", points: 6 },
     ],
   },
   // --- Follow-ups for group sex (sexe-19) ---
@@ -209,6 +218,9 @@ export const sexeQuestions: Question[] = [
     id: "sexe-20",
     text: "Quelle était la configuration la plus poussée ?",
     requires: { question: "sexe-19", minAnswerIndex: 1 },
+    answerLimits: [
+      { question: "sexe-02", allowed: { 0: [0] } },
+    ],
     answers: [
       { label: "Un plan à trois", points: 2 },
       { label: "Un plan à quatre ou cinq", points: 4 },
@@ -219,6 +231,9 @@ export const sexeQuestions: Question[] = [
     id: "sexe-21",
     text: "À quelle fréquence participes-tu à des plans à plusieurs ?",
     requires: { question: "sexe-19", minAnswerIndex: 2 },
+    answerLimits: [
+      { question: "sexe-19", allowed: { 2: [0, 1], 3: [1, 2] } },
+    ],
     answers: [
       { label: "Très rarement, exceptionnel", points: 2 },
       { label: "Quelques fois par an", points: 4 },
@@ -230,9 +245,9 @@ export const sexeQuestions: Question[] = [
     text: "As-tu déjà tourné une sextape ou envoyé des nudes de toi ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Souvent", points: 4 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   // --- Follow-ups for nudes/sextape (sexe-22) ---
@@ -253,7 +268,7 @@ export const sexeQuestions: Question[] = [
     requires: { question: "sexe-22", minAnswerIndex: 2 },
     answers: [
       { label: "Jamais", points: 1 },
-      { label: "Une fois, pour tester", points: 4 },
+      { label: "1 fois, pour tester", points: 4 },
       { label: "Régulièrement, ça me rapporte", points: 6 },
     ],
   },
@@ -262,9 +277,9 @@ export const sexeQuestions: Question[] = [
     text: "As-tu déjà été infidèle à un·e partenaire (rapport ou contact sexuel hors couple) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Quelques fois", points: 4 },
-      { label: "Plusieurs fois, avec plusieurs personnes", points: 6 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 4 },
+      { label: "Plus de 10 fois", points: 6 },
     ],
   },
   // --- Follow-ups for infidelity (sexe-25) ---
@@ -272,16 +287,24 @@ export const sexeQuestions: Question[] = [
     id: "sexe-26",
     text: "Avec combien de personnes différentes as-tu trompé un·e partenaire ?",
     requires: { question: "sexe-25", minAnswerIndex: 1 },
+    answerLimits: [
+      { question: "sexe-02", allowed: { 0: [0], 1: [0, 1, 2] } },
+      { question: "sexe-25", allowed: { 1: [0, 1], 2: [0, 1, 2] } },
+    ],
     answers: [
       { label: "Une seule", points: 2 },
       { label: "2 ou 3", points: 4 },
-      { label: "Plus de 5", points: 6 },
+      { label: "4 à 10", points: 6 },
+      { label: "Plus de 10", points: 8 },
     ],
   },
   {
     id: "sexe-27",
     text: "L'infidélité, chez toi, c'est plutôt…",
     requires: { question: "sexe-25", minAnswerIndex: 2 },
+    answerLimits: [
+      { question: "sexe-25", allowed: { 2: [0, 1], 3: [1, 2] } },
+    ],
     answers: [
       { label: "Un dérapage isolé que je regrette", points: 2 },
       { label: "Une habitude récurrente", points: 5 },
@@ -294,9 +317,9 @@ export const sexeQuestions: Question[] = [
     onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Plusieurs fois", points: 4 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
 ];

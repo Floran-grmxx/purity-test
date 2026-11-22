@@ -62,10 +62,32 @@ describe("scoreCategory", () => {
     expect(r.completed).toBe(true);
   });
 
-  it("ignores out-of-range answer indices", () => {
+  it("leaves a not-applicable answer out of the score", () => {
+    const category: Category = {
+      ...mockCategory,
+      questions: [
+        mockCategory.questions[0],
+        {
+          id: "q2",
+          text: "?",
+          answers: [
+            { label: "a", points: 0 },
+            { label: "b", points: 3 },
+            { label: "n/a", points: 0, notApplicable: true },
+          ],
+        },
+      ],
+    };
+    // q2 excluded -> earned 3 (q1->d) over max 3
+    const r = scoreCategory(category, { q1: 3, q2: 2 });
+    expect(r.score).toBe(100);
+    expect(r.completed).toBe(true);
+  });
+
+  it("treats out-of-range answer indices as unanswered", () => {
     const r = scoreCategory(mockCategory, { q1: 99 });
     expect(r.score).toBe(0);
-    expect(r.answered).toBe(1);
+    expect(r.answered).toBe(0);
     expect(r.completed).toBe(false);
   });
 });

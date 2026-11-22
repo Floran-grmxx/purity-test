@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Navigate, useNavigate, useParams, Link } from "react-router-dom";
 import { useQuiz } from "../state/QuizContext";
 import { getCategory } from "../data/categories";
-import { visibleQuestions } from "../lib/questions";
+import {
+  allowedAnswerIndices,
+  sanitizeAnswers,
+  visibleQuestions,
+} from "../lib/questions";
 import type { CategoryId } from "../data/types";
 import { Page } from "../components/Page";
 import { ProgressBar } from "../components/ProgressBar";
@@ -13,7 +17,8 @@ export function Quiz() {
   const navigate = useNavigate();
   const { answers, setAnswer } = useQuiz();
 
-  const catAnswers = (category && answers[category.id]) || {};
+  // Contradictory answers (see `answerLimits`) count as unanswered.
+  const catAnswers = category ? sanitizeAnswers(category, answers[category.id]) : {};
 
   // The list of shown questions grows/shrinks as gateway answers unlock follow-ups.
   const visible = category ? visibleQuestions(category, catAnswers) : [];
@@ -31,9 +36,16 @@ export function Quiz() {
   const question = visible[safeIndex];
   if (!question) return <Navigate to="/hub" replace />;
   const selected = catAnswers[question.id];
+  const allowed = allowedAnswerIndices(
+    question,
+    new Map(category.questions.map((q) => [q.id, q])),
+    catAnswers,
+  );
 
-  function goAfter(answeredId: string, nextAnswers: Record<string, number>) {
+  function goAfter(answeredId: string, rawNextAnswers: Record<string, number>) {
     if (!category) return;
+    // A changed answer may invalidate later ones: those must be asked again.
+    const nextAnswers = sanitizeAnswers(category, rawNextAnswers);
     // Recompute visibility against the freshly chosen answer so a just-unlocked
     // follow-up (inserted right after its gateway) becomes the next question.
     const nextVisible = visibleQuestions(category, nextAnswers);
@@ -75,6 +87,7 @@ export function Quiz() {
 
         <div className="mt-6 space-y-3">
           {question.answers.map((answer, i) => {
+            if (!allowed.includes(i)) return null;
             const isSelected = selected === i;
             return (
               <button

@@ -41,3 +41,46 @@ export function visibleQuestions(
   const byId = new Map(category.questions.map((q) => [q.id, q]));
   return category.questions.filter((q) => isQuestionVisible(q, byId, answers));
 }
+
+/**
+ * Indices of the answers still selectable for a question: every limit whose
+ * gateway is visible and answered narrows the list. Falls back to every answer
+ * if the limits ever leave nothing.
+ */
+export function allowedAnswerIndices(
+  question: Question,
+  byId: Map<string, Question>,
+  answers: CategoryAnswers,
+): number[] {
+  let allowed = question.answers.map((_, i) => i);
+  for (const limit of question.answerLimits ?? []) {
+    const gateway = byId.get(limit.question);
+    if (!gateway || !isQuestionVisible(gateway, byId, answers)) continue;
+    const chosen = answers[limit.question];
+    const subset = chosen == null ? undefined : limit.allowed[chosen];
+    if (subset) allowed = allowed.filter((i) => subset.includes(i));
+  }
+  return allowed.length > 0 ? allowed : question.answers.map((_, i) => i);
+}
+
+/**
+ * Drops stored answers that a later change made contradictory (e.g. the typical
+ * night was raised above the recorded record), so the question is asked again.
+ * Answers of hidden questions are kept, in case they get unlocked again.
+ */
+export function sanitizeAnswers(
+  category: Category,
+  answers: CategoryAnswers = {},
+): CategoryAnswers {
+  const byId = new Map(category.questions.map((q) => [q.id, q]));
+  const clean: CategoryAnswers = {};
+  for (const question of category.questions) {
+    const chosen = answers[question.id];
+    if (chosen == null) continue;
+    const keep =
+      !isQuestionVisible(question, byId, clean) ||
+      allowedAnswerIndices(question, byId, clean).includes(chosen);
+    if (keep) clean[question.id] = chosen;
+  }
+  return clean;
+}

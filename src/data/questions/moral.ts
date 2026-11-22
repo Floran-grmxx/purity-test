@@ -17,9 +17,9 @@ export const moralQuestions: Question[] = [
     text: "Tu as déjà triché à un examen ou un contrôle.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Régulièrement", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -48,9 +48,9 @@ export const moralQuestions: Question[] = [
     text: "Tu as déjà volé quelque chose.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Un truc insignifiant, une fois", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Souvent", points: 4 },
+      { label: "1 fois", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   {
@@ -68,11 +68,17 @@ export const moralQuestions: Question[] = [
     id: "moral-07",
     text: "Combien estimes-tu avoir volé en valeur cumulée dans ta vie ?",
     requires: { question: "moral-05", minAnswerIndex: 1 },
+    answerLimits: [
+      { question: "moral-05", allowed: { 3: [1, 2, 3, 4, 5] } },
+      { question: "moral-06", allowed: { 3: [3, 4, 5] } },
+    ],
     answers: [
       { label: "Quelques euros", points: 1 },
       { label: "Moins de 100 €", points: 2 },
       { label: "Entre 100 € et 500 €", points: 4 },
-      { label: "Plus de 500 €", points: 6 },
+      { label: "Entre 500 € et 2 000 €", points: 6 },
+      { label: "Entre 2 000 € et 10 000 €", points: 8 },
+      { label: "Plus de 10 000 €", points: 10 },
     ],
   },
   {
@@ -80,9 +86,9 @@ export const moralQuestions: Question[] = [
     text: "Tu te fais passer pour malade afin de sécher le travail ou les cours.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -90,9 +96,9 @@ export const moralQuestions: Question[] = [
     text: "Tu lis les messages ou fouilles le téléphone de quelqu'un sans son accord.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Régulièrement", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -100,9 +106,9 @@ export const moralQuestions: Question[] = [
     text: "Tu t'attribues le travail ou le mérite de quelqu'un d'autre.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Parfois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -110,9 +116,9 @@ export const moralQuestions: Question[] = [
     text: "Tu balances un ami ou un collègue pour te couvrir ou avoir un avantage.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -151,9 +157,9 @@ export const moralQuestions: Question[] = [
     text: "Tu profites de la générosité ou de la naïveté de quelqu'un.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Parfois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -161,9 +167,9 @@ export const moralQuestions: Question[] = [
     text: "Tu manipules quelqu'un pour obtenir ce que tu veux.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Parfois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -171,9 +177,9 @@ export const moralQuestions: Question[] = [
     text: "Tu colportes un secret intime qu'on t'avait confié.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Parfois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -181,8 +187,8 @@ export const moralQuestions: Question[] = [
     text: "Tu empruntes de l'argent ou un objet sans jamais le rendre.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Parfois", points: 2 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
       { label: "C'est une habitude", points: 3 },
     ],
   },
@@ -191,9 +197,9 @@ export const moralQuestions: Question[] = [
     text: "Tu as déjà ghosté quelqu'un (coupé tout contact sans un mot) pour éviter une explication.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -201,9 +207,9 @@ export const moralQuestions: Question[] = [
     text: "Tu t'es déjà battu physiquement avec quelqu'un.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une bagarre, une fois", points: 2 },
-      { label: "Quelques fois", points: 3 },
-      { label: "Souvent", points: 4 },
+      { label: "1 bagarre", points: 2 },
+      { label: "2 à 10 fois", points: 3 },
+      { label: "Plus de 10 fois", points: 4 },
     ],
   },
   {
@@ -222,9 +228,9 @@ export const moralQuestions: Question[] = [
     text: "Tu dégrades volontairement un bien qui ne t'appartient pas (tag, rayure, casse).",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois, un truc mineur", points: 1 },
-      { label: "Quelques fois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois, un truc mineur", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
   {
@@ -242,9 +248,9 @@ export const moralQuestions: Question[] = [
     text: "Tu répands une rumeur ou un ragot que tu sais faux.",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois", points: 1 },
-      { label: "Parfois", points: 2 },
-      { label: "Souvent", points: 3 },
+      { label: "1 fois", points: 1 },
+      { label: "2 à 10 fois", points: 2 },
+      { label: "Plus de 10 fois", points: 3 },
     ],
   },
 ];

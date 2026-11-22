@@ -15,6 +15,9 @@ export const hygieneQuestions: Question[] = [
   {
     id: "hygiene-02",
     text: "T'est-il déjà arrivé de passer plusieurs jours sans te doucher ?",
+    answerLimits: [
+      { question: "hygiene-01", allowed: { 2: [2, 3], 3: [2, 3], 4: [1, 2, 3] } },
+    ],
     answers: [
       { label: "Jamais, c'est impensable", points: 0 },
       { label: "Une fois, une flemme de week-end", points: 2 },
@@ -26,6 +29,10 @@ export const hygieneQuestions: Question[] = [
     id: "hygiene-03",
     text: "Ton record de jours consécutifs sans douche, c'était combien ?",
     requires: { question: "hygiene-02", minAnswerIndex: 1 },
+    answerLimits: [
+      { question: "hygiene-01", allowed: { 2: [1, 2, 3], 3: [2, 3] } },
+      { question: "hygiene-02", allowed: { 1: [0, 1], 3: [1, 2, 3] } },
+    ],
     answers: [
       { label: "2 jours", points: 2 },
       { label: "3 à 4 jours", points: 4 },
@@ -57,6 +64,9 @@ export const hygieneQuestions: Question[] = [
     id: "hygiene-06",
     text: "Tes sous-vêtements, tu les gardes jusqu'à combien de jours d'affilée ?",
     requires: { question: "hygiene-05", minAnswerIndex: 2 },
+    answerLimits: [
+      { question: "hygiene-05", allowed: { 3: [1, 2, 3] } },
+    ],
     answers: [
       { label: "2 jours grand maximum", points: 2 },
       { label: "3 jours", points: 4 },
@@ -87,7 +97,7 @@ export const hygieneQuestions: Question[] = [
   },
   {
     id: "hygiene-09",
-    text: "Tu utilises du déodorant...",
+    text: "Tu utilises du déodorant…",
     answers: [
       { label: "Tous les matins", points: 0 },
       { label: "Les jours où je sors", points: 1 },
@@ -97,7 +107,7 @@ export const hygieneQuestions: Question[] = [
   },
   {
     id: "hygiene-10",
-    text: "Tes ongles, en général, ils sont...",
+    text: "Tes ongles, en général, ils sont…",
     answers: [
       { label: "Toujours coupés et nets", points: 0 },
       { label: "Coupés régulièrement", points: 1 },
@@ -148,7 +158,7 @@ export const hygieneQuestions: Question[] = [
   },
   {
     id: "hygiene-15",
-    text: "Après le sport ou une grosse suée, tu...",
+    text: "Après le sport ou une grosse suée, tu…",
     answers: [
       { label: "Douche immédiate", points: 0 },
       { label: "Douche dans l'heure", points: 1 },
@@ -169,7 +179,7 @@ export const hygieneQuestions: Question[] = [
   },
   {
     id: "hygiene-17",
-    text: "Ta poubelle de cuisine, tu la sors...",
+    text: "Ta poubelle de cuisine, tu la sors…",
     answers: [
       { label: "Avant qu'elle déborde ou qu'elle sente", points: 0 },
       { label: "Quand elle est pleine", points: 1 },
@@ -190,7 +200,7 @@ export const hygieneQuestions: Question[] = [
   },
   {
     id: "hygiene-19",
-    text: "Ta serviette de bain, tu la laves...",
+    text: "Ta serviette de bain, tu la laves…",
     answers: [
       { label: "Toutes les semaines", points: 0 },
       { label: "Tous les quinze jours", points: 1 },
@@ -200,7 +210,7 @@ export const hygieneQuestions: Question[] = [
   },
   {
     id: "hygiene-20",
-    text: "Tes chaussettes, après une journée, elles...",
+    text: "Tes chaussettes, après une journée, elles…",
     answers: [
       { label: "Vont direct au linge sale", points: 0 },
       { label: "Resservent une fois", points: 1 },
@@ -210,18 +220,18 @@ export const hygieneQuestions: Question[] = [
   },
   {
     id: "hygiene-21",
-    text: "Te laves-tu après un rapport sexuel ?",
+    text: "Te laves-tu après un rapport sexuel ou une masturbation ?",
     answers: [
       { label: "Toujours, sans exception", points: 0 },
       { label: "La plupart du temps", points: 1 },
       { label: "Un coup de lingette et ça ira", points: 2 },
       { label: "Non, je me rendors directement", points: 3 },
-      { label: "Pas concerné·e (jamais eu de rapport)", points: 0 },
+      { label: "Pas concerné·e", points: 0, notApplicable: true },
     ],
   },
   {
     id: "hygiene-22",
-    text: "Ta brosse à dents, tu la changes...",
+    text: "Ta brosse à dents, tu la changes…",
     answers: [
       { label: "Tous les trois mois", points: 0 },
       { label: "Deux fois par an", points: 1 },

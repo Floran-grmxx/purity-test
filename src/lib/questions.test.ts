@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { Category } from "../data/types";
-import { visibleQuestions } from "./questions";
+import { allowedAnswerIndices, sanitizeAnswers, visibleQuestions } from "./questions";
 import { scoreCategory } from "./scoring";
 
 /** Synthetic category: one gateway + a follow-up gated on its non-innocent answer. */
@@ -146,5 +146,50 @@ describe("scoreCategory with conditional questions (cumulative model)", () => {
     // t-02 answered high, but t-01 relocks it -> its points must not count.
     const r = scoreCategory(cat, { "t-01": 0, "t-02": 1 });
     expect(r.score).toBe(0);
+  });
+});
+
+describe("answer limits", () => {
+  const category: Category = {
+    id: "alcool",
+    label: "Test",
+    emoji: "x",
+    color: "#000",
+    questions: [
+      {
+        id: "typical",
+        text: "?",
+        answers: [
+          { label: "low", points: 0 },
+          { label: "high", points: 1 },
+        ],
+      },
+      {
+        id: "record",
+        text: "?",
+        answerLimits: [{ question: "typical", allowed: { 1: [1, 2] } }],
+        answers: [
+          { label: "low", points: 0 },
+          { label: "high", points: 1 },
+          { label: "huge", points: 2 },
+        ],
+      },
+    ],
+  };
+  const byId = new Map(category.questions.map((q) => [q.id, q]));
+  const record = category.questions[1];
+
+  it("keeps every answer while the gateway is unanswered or unrestricted", () => {
+    expect(allowedAnswerIndices(record, byId, {})).toEqual([0, 1, 2]);
+    expect(allowedAnswerIndices(record, byId, { typical: 0 })).toEqual([0, 1, 2]);
+  });
+
+  it("hides answers that contradict the gateway answer", () => {
+    expect(allowedAnswerIndices(record, byId, { typical: 1 })).toEqual([1, 2]);
+  });
+
+  it("drops a stored answer that became contradictory", () => {
+    expect(sanitizeAnswers(category, { typical: 1, record: 0 })).toEqual({ typical: 1 });
+    expect(sanitizeAnswers(category, { typical: 1, record: 2 })).toEqual({ typical: 1, record: 2 });
   });
 });

@@ -4,6 +4,11 @@ export interface Answer {
   label: string;
   /** >= 0 ; 0 = innocent, plus haut = plus expérimenté / trash */
   points: number;
+  /**
+   * "Not concerned" answer: the question is left out of the score entirely
+   * (neither earned nor max points), so it neither helps nor hurts.
+   */
+  notApplicable?: boolean;
 }
 
 /**
@@ -19,6 +24,18 @@ export interface QuestionGate {
   minAnswerIndex: number;
 }
 
+/**
+ * Restricts which answers of a question stay selectable, depending on what was
+ * answered to an earlier question (e.g. the record night can't be smaller than
+ * a typical night). Gateway answers missing from `allowed` leave every option.
+ */
+export interface AnswerLimit {
+  /** id of an earlier question in the same category */
+  question: string;
+  /** gateway answer index -> indices of this question's answers still allowed */
+  allowed: Record<number, number[]>;
+}
+
 export interface Question {
   id: string;
   text: string;
@@ -32,6 +49,8 @@ export interface Question {
    * follow-up. Gateways must be declared earlier in the same category.
    */
   onlyIf?: QuestionGate[];
+  /** hides answers that would contradict an earlier answer */
+  answerLimits?: AnswerLimit[];
 }
 
 export interface Category {

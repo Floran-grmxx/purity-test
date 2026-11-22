@@ -3,11 +3,11 @@
 ## 🧭 Ligne directrice
 *(maj 2026-11-22)* — **v1 EN LIGNE** : https://floran-grmxx.github.io/purity-test/
 (repo public `Floran-grmxx/purity-test`, déploiement auto à chaque push sur `main`).
-**Nouveau (pushé le 2026-11-22)** : **prérequis logiques** `onlyIf` — une réponse
-« jamais » masque les questions qui n'ont plus de sens (jamais bu → plus de questions
-alcool, aucune drogue → plus de questions d'usage, pas de rapport → plus de questions
-sur les rapports) + correction des tranches de réponses. **54/54 tests verts**, build
-propre. **Prochaine priorité** : vérif visuelle sur téléphone, choix du nom.
+**Nouveau (pushé le 2026-11-22)** : réponses contradictoires masquées (`answerLimits`),
+comptages chiffrés, questions de fréquence au passé, **portrait** texte sous les résultats
+(aussi sur la page partagée, version scores seuls), **partage par QR code**. **68/68 tests
+verts**, build propre. **Prochaine priorité** : vérif sur téléphone (scan du QR), décider
+des questions à un seul choix (réponse auto ?), choix du nom.
 
 ## ✅ Fait
 - [x] Cadrage (QCM pondéré, 5 catégories, ton sérieux + questions trash)
@@ -38,7 +38,11 @@ propre. **Prochaine priorité** : vérif visuelle sur téléphone, choix du nom.
   synthèse ; `drogue-08` (recoupait `drogue-16`) → `drogue-27` plus grosse conso en une soirée ;
   `drogue-02` barème 0→5 (mois ≠ semaine)
 
+- [x] Réponses contradictoires masquées + comptages chiffrés + fréquences au passé
+- [x] Portrait texte (résultat perso + page partagée) et panneau de partage QR / lien
+
 ## ⏳ Reste à faire
+- [ ] Questions à un seul choix possible : les répondre automatiquement et les sauter ? (en attente de décision)
 - [x] Pusher l'audit logique (captures inchangées : pas de changement visuel)
 - [x] Déploiement statique → GitHub Pages (Actions, repo public)
 - [ ] Vérification visuelle réelle sur téléphone + install PWA
@@ -47,6 +51,10 @@ propre. **Prochaine priorité** : vérif visuelle sur téléphone, choix du nom.
 - [ ] (Option) Générer des icônes PNG en plus du SVG pour l'installabilité
 
 ## 📋 Notes / gotchas
+- **Questions de fréquence = au passé inclusif** (« au plus fort de ta consommation… ») pour que les ex-consommateurs puissent répondre. Ne jamais formuler une fréquence au présent seul. Garder l'ordre des réponses (les gates `minAnswerIndex` en dépendent).
+- **Chaîne alcool** : `alcool-01`≥« Plusieurs fois » débloque cuite/vomi/jeux/shots/binge ; `alcool-05` (« première cuite » ≠ Jamais) débloque ivresse, blackout, honte, gueule de bois, verre du lendemain. Masquer = 0 pt = même score que « Jamais ». Tester avec des profils simulés (1re / 2e / milieu / dernière réponse) après chaque changement de gates.
+- **Réponse `notApplicable: true`** (« Pas concerné·e ») : la question sort du score (ni gagnés ni max). Doit valoir 0 pt. Utilisé par hygiene-21. `drogue-16` (nombre de substances) supprimée car elle contredisait les réponses précédentes.
+- **`answerLimits`** : masque les réponses qui contrediraient une réponse précédente (ex. record de verres ≥ soirée normale, ivresse ≤ fréquence de consommation). Une réponse stockée devenue contradictoire est ignorée (`sanitizeAnswers`) et la question est reposée. Échelle de comptage standard : `Jamais | 1 fois | 2 à 10 fois | Plus de 10 fois` (garder 4 réponses pour ne pas décaler les index des gates).
 - Sens du score : **haut = expérimenté**, bas = innocent.
 - Score global = **somme** des 5 catégories (/100 chacune) → **/500**.
 - Spec à plat dans `docs/` (préférence utilisateur).

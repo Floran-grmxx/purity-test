@@ -8,11 +8,13 @@ import { Page } from "../components/Page";
 import { Button } from "../components/Button";
 import { ScoreRing } from "../components/ScoreRing";
 import { CategoryBar } from "../components/CategoryBar";
+import { SharePanel } from "../components/SharePanel";
+import { buildPortrait } from "../lib/portrait";
 
 export function GlobalResult() {
   const { answers, resetAll } = useQuiz();
   const result = scoreAll(answers);
-  const [copied, setCopied] = useState(false);
+  const [sharing, setSharing] = useState(false);
 
   if (!result.allCompleted) return <Navigate to="/hub" replace />;
 
@@ -20,25 +22,11 @@ export function GlobalResult() {
     result.perCategory.map((r) => [r.id, r.score]),
   );
 
-  async function share() {
-    const scores = Object.fromEntries(
-      result.perCategory.map((r) => [r.id, r.score]),
-    ) as ScoreMap;
-    const token = encodeResult(scores);
-    const url = `${window.location.origin}${window.location.pathname}#/partage?d=${token}`;
-    const text = `Mon Purity Test : ${result.total}/${result.maxTotal} — ${result.profile?.title}. Et toi ?`;
-    try {
-      if (navigator.share) {
-        await navigator.share({ title: "Purity Test", text, url });
-      } else {
-        await navigator.clipboard.writeText(url);
-        setCopied(true);
-        window.setTimeout(() => setCopied(false), 2000);
-      }
-    } catch {
-      // user cancelled the share sheet — ignore
-    }
-  }
+  const shareUrl = `${window.location.origin}${window.location.pathname}#/partage?d=${encodeResult(
+    scoreById as ScoreMap,
+  )}`;
+  const portrait = buildPortrait(scoreById as ScoreMap, answers);
+  const shareText = `Mon Purity Test : ${result.total}/${result.maxTotal} — ${result.profile?.title}. Et toi ?`;
 
   return (
     <Page>
@@ -82,9 +70,16 @@ export function GlobalResult() {
         ))}
       </div>
 
+      <section className="mt-6 space-y-3 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 text-[0.95rem] leading-relaxed">
+        <h2 className="text-lg font-bold">Ton portrait</h2>
+        {portrait.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </section>
+
       <div className="mt-8 space-y-3">
-        <Button onClick={share} full>
-          {copied ? "Lien copié ✓" : "Partager mon résultat"}
+        <Button onClick={() => setSharing(true)} full>
+          Partager mon résultat
         </Button>
         <Button
           variant="outline"
@@ -97,6 +92,10 @@ export function GlobalResult() {
           Recommencer
         </Button>
       </div>
+
+      {sharing && (
+        <SharePanel url={shareUrl} text={shareText} onClose={() => setSharing(false)} />
+      )}
     </Page>
   );
 }
