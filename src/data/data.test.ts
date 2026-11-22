@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { categories } from "./categories";
+import { visibleQuestions } from "../lib/questions";
 
 describe("question banks integrity", () => {
   it("has the 5 expected categories", () => {
@@ -41,8 +42,9 @@ describe("question banks integrity", () => {
           const points = q.answers.map((a) => a.points);
           // Base questions must offer an innocent (0-point) option. Conditional
           // follow-ups are already gated behind an "experienced" answer, so their
-          // mildest option may legitimately start above 0.
-          if (!q.requires) expect(Math.min(...points)).toBe(0);
+          // mildest option may legitimately start above 0. Same for questions
+          // behind a logical prerequisite (`onlyIf`).
+          if (!q.requires && !q.onlyIf) expect(Math.min(...points)).toBe(0);
           expect(Math.max(...points)).toBeGreaterThan(0); // an experienced option exists
           for (const a of q.answers) {
             expect(Number.isFinite(a.points)).toBe(true);
@@ -52,16 +54,23 @@ describe("question banks integrity", () => {
         }
       });
 
+      it("keeps at least one question visible on the innocent path", () => {
+        // Sanity: the innocent path still leaves something to answer.
+        expect(visibleQuestions(category, {}).length).toBeGreaterThan(0);
+      });
+
       it("conditional gates reference an earlier question with a valid threshold", () => {
         const seen = new Map<string, number>(); // id -> answers count
         for (const q of category.questions) {
-          if (q.requires) {
-            const gateCount = seen.get(q.requires.question);
+          if (q.onlyIf) expect(q.onlyIf.length).toBeGreaterThan(0);
+          const gates = [...(q.requires ? [q.requires] : []), ...(q.onlyIf ?? [])];
+          for (const gate of gates) {
+            const gateCount = seen.get(gate.question);
             // gateway must be declared earlier in the same category
             expect(gateCount).toBeDefined();
             // threshold must point at a real, non-innocent answer of the gateway
-            expect(q.requires.minAnswerIndex).toBeGreaterThanOrEqual(1);
-            expect(q.requires.minAnswerIndex).toBeLessThan(gateCount as number);
+            expect(gate.minAnswerIndex).toBeGreaterThanOrEqual(1);
+            expect(gate.minAnswerIndex).toBeLessThan(gateCount as number);
           }
           seen.set(q.id, q.answers.length);
         }

@@ -66,6 +66,59 @@ describe("visibleQuestions", () => {
   });
 });
 
+/** Synthetic category with logical prerequisites (single and any-of). */
+const prerequisiteCategory: Category = {
+  id: "drogue",
+  label: "Test",
+  emoji: "🔬",
+  color: "#000",
+  questions: [
+    { id: "p-01", text: "tried A?", answers: [{ label: "No", points: 0 }, { label: "Yes", points: 2 }] },
+    { id: "p-02", text: "tried B?", answers: [{ label: "No", points: 0 }, { label: "Yes", points: 2 }] },
+    {
+      id: "p-03",
+      text: "only if A or B",
+      onlyIf: [
+        { question: "p-01", minAnswerIndex: 1 },
+        { question: "p-02", minAnswerIndex: 1 },
+      ],
+      answers: [{ label: "Never", points: 0 }, { label: "Often", points: 3 }],
+    },
+    {
+      id: "p-04",
+      text: "follow-up of a prerequisite question",
+      requires: { question: "p-03", minAnswerIndex: 1 },
+      answers: [{ label: "Some", points: 1 }, { label: "Lots", points: 4 }],
+    },
+  ],
+};
+
+describe("visibleQuestions with logical prerequisites (onlyIf)", () => {
+  const ids = (answers: Record<string, number>) =>
+    visibleQuestions(prerequisiteCategory, answers).map((q) => q.id);
+
+  it("hides a prerequisite question while no gate is met", () => {
+    expect(ids({})).toEqual(["p-01", "p-02"]);
+    expect(ids({ "p-01": 0, "p-02": 0 })).toEqual(["p-01", "p-02"]);
+  });
+
+  it("shows it as soon as any one gate is met", () => {
+    expect(ids({ "p-01": 1, "p-02": 0 })).toEqual(["p-01", "p-02", "p-03"]);
+    expect(ids({ "p-01": 0, "p-02": 1 })).toEqual(["p-01", "p-02", "p-03"]);
+  });
+
+  it("hides follow-ups of a prerequisite question when the prerequisite fails", () => {
+    expect(ids({ "p-01": 1, "p-03": 1 })).toEqual(["p-01", "p-02", "p-03", "p-04"]);
+    expect(ids({ "p-01": 0, "p-02": 0, "p-03": 1 })).toEqual(["p-01", "p-02"]);
+  });
+
+  it("ignores answers of a now-hidden prerequisite question in the score", () => {
+    const r = scoreCategory(prerequisiteCategory, { "p-01": 0, "p-02": 0, "p-03": 1, "p-04": 1 });
+    expect(r.score).toBe(0);
+    expect(r.completed).toBe(true);
+  });
+});
+
 describe("scoreCategory with conditional questions (cumulative model)", () => {
   it("counts the full bank in the denominator: the innocent path scores low", () => {
     // Max = best(t-01)=3 + best(t-02)=10 + best(t-03)=6 = 19.

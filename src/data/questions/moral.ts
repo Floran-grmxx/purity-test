@@ -24,7 +24,7 @@ export const moralQuestions: Question[] = [
   },
   {
     id: "moral-03",
-    text: "Jusqu'où es-tu allé en trichant ?",
+    text: "Jusqu'où es-tu allé·e en trichant ?",
     requires: { question: "moral-02", minAnswerIndex: 1 },
     answers: [
       { label: "Un petit coup d'œil sur le voisin", points: 1 },

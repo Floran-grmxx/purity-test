@@ -16,17 +16,18 @@ export const sexeQuestions: Question[] = [
   {
     id: "sexe-02",
     text: "Avec combien de partenaires différent·e·s as-tu déjà couché ?",
+    onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
-      { label: "Aucun·e", points: 0 },
       { label: "1 ou 2", points: 1 },
-      { label: "Moins de 10", points: 2 },
-      { label: "Moins de 25", points: 3 },
-      { label: "Plus de 35", points: 4 },
+      { label: "3 à 9", points: 2 },
+      { label: "10 à 25", points: 3 },
+      { label: "Plus de 25", points: 4 },
     ],
   },
   {
     id: "sexe-03",
     text: "À quelle fréquence as-tu des rapports sexuels en ce moment ?",
+    onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Quelques fois par an", points: 1 },
@@ -48,6 +49,7 @@ export const sexeQuestions: Question[] = [
   {
     id: "sexe-05",
     text: "Combien de fois as-tu pratiqué la sodomie (donnée ou reçue) ?",
+    onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -68,22 +70,24 @@ export const sexeQuestions: Question[] = [
   {
     id: "sexe-07",
     text: "Combien de coups d'un soir (rapport le soir même de la rencontre) as-tu eus ?",
+    onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Aucun", points: 0 },
       { label: "Un seul", points: 1 },
-      { label: "Moins de 5", points: 2 },
-      { label: "Moins de 15", points: 3 },
+      { label: "2 à 4", points: 2 },
+      { label: "5 à 15", points: 3 },
       { label: "Plus de 15", points: 4 },
     ],
   },
   {
     id: "sexe-08",
     text: "Dans combien de lieux insolites ou publics as-tu déjà fait l'amour (voiture, plage, toilettes, bureau…) ?",
+    onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Aucun", points: 0 },
       { label: "Un seul", points: 1 },
       { label: "2 ou 3", points: 2 },
-      { label: "Plus de 5", points: 3 },
+      { label: "4 ou plus", points: 3 },
     ],
   },
   {
@@ -109,6 +113,7 @@ export const sexeQuestions: Question[] = [
   {
     id: "sexe-11",
     text: "As-tu déjà eu un rapport sous l'effet de l'alcool ou de substances au point de mal t'en souvenir ?",
+    onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -191,6 +196,7 @@ export const sexeQuestions: Question[] = [
   {
     id: "sexe-19",
     text: "As-tu déjà eu un rapport à plusieurs (plan à trois ou plus) ?",
+    onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 2 },
@@ -285,6 +291,7 @@ export const sexeQuestions: Question[] = [
   {
     id: "sexe-28",
     text: "As-tu déjà payé pour un rapport sexuel, ou été payé·e pour ça ?",
+    onlyIf: [{ question: "sexe-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 2 },

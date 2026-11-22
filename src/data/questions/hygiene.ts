@@ -66,7 +66,7 @@ export const hygieneQuestions: Question[] = [
   },
   {
     id: "hygiene-07",
-    text: "Tu te laves les mains après être allé aux toilettes ?",
+    text: "Tu te laves les mains après être allé·e aux toilettes ?",
     answers: [
       { label: "Toujours, au savon", points: 0 },
       { label: "Presque toujours, à l'eau", points: 1 },
@@ -216,6 +216,7 @@ export const hygieneQuestions: Question[] = [
       { label: "La plupart du temps", points: 1 },
       { label: "Un coup de lingette et ça ira", points: 2 },
       { label: "Non, je me rendors directement", points: 3 },
+      { label: "Pas concerné·e (jamais eu de rapport)", points: 0 },
     ],
   },
   {

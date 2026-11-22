@@ -19,8 +19,8 @@ export const drogueQuestions: Question[] = [
       { label: "Une seule fois dans ma vie", points: 1 },
       { label: "Quelques fois par an", points: 2 },
       { label: "Chaque mois", points: 3 },
-      { label: "Chaque semaine", points: 3 },
-      { label: "Tous les jours", points: 4 },
+      { label: "Chaque semaine", points: 4 },
+      { label: "Tous les jours", points: 5 },
     ],
   },
   {
@@ -35,14 +35,13 @@ export const drogueQuestions: Question[] = [
     ],
   },
   {
-    id: "drogue-04",
-    text: "À quelle fréquence te mets-tu en état d'ivresse avancée ?",
+    id: "drogue-26",
+    text: "As-tu déjà pris des drogues de synthèse (3-MMC, cathinones, « research chemicals »…) ?",
     answers: [
       { label: "Jamais", points: 0 },
-      { label: "Une fois ou deux", points: 1 },
-      { label: "Quelques fois par an", points: 2 },
-      { label: "Chaque mois", points: 3 },
-      { label: "Chaque semaine", points: 4 },
+      { label: "Une fois", points: 2 },
+      { label: "Quelques fois", points: 4 },
+      { label: "Régulièrement", points: 6 },
     ],
   },
   {
@@ -77,13 +76,14 @@ export const drogueQuestions: Question[] = [
     ],
   },
   {
-    id: "drogue-08",
-    text: "Lesquelles as-tu déjà essayées ?",
+    id: "drogue-27",
+    text: "Quelle a été ta plus grosse consommation en une seule soirée ?",
     requires: { question: "drogue-07", minAnswerIndex: 1 },
     answers: [
-      { label: "Juste une, par curiosité", points: 2 },
-      { label: "Deux ou trois", points: 4 },
-      { label: "Un peu tout ce qui passait", points: 7 },
+      { label: "Une petite dose, prudemment", points: 2 },
+      { label: "Une dose classique", points: 4 },
+      { label: "J'ai redosé plusieurs fois", points: 6 },
+      { label: "Je ne comptais plus", points: 7 },
     ],
   },
   {
@@ -144,12 +144,23 @@ export const drogueQuestions: Question[] = [
     answers: [
       { label: "Sniffé ou fumé une fois", points: 3 },
       { label: "Fumé à plusieurs reprises", points: 5 },
-      { label: "Je suis allé(e) jusqu'à l'injection", points: 8 },
+      { label: "Je suis allé·e jusqu'à l'injection", points: 8 },
     ],
   },
   {
     id: "drogue-15",
     text: "As-tu déjà mélangé plusieurs substances lors d'une même prise ?",
+    onlyIf: [
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -160,8 +171,18 @@ export const drogueQuestions: Question[] = [
   {
     id: "drogue-16",
     text: "Combien de substances différentes as-tu déjà essayées au total ?",
+    onlyIf: [
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
-      { label: "Aucune", points: 0 },
       { label: "Une", points: 1 },
       { label: "Deux ou trois", points: 2 },
       { label: "Quatre à six", points: 3 },
@@ -171,6 +192,17 @@ export const drogueQuestions: Question[] = [
   {
     id: "drogue-17",
     text: "As-tu déjà pris le volant sous l'emprise de la drogue ?",
+    onlyIf: [
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 2 },
@@ -180,7 +212,18 @@ export const drogueQuestions: Question[] = [
   },
   {
     id: "drogue-18",
-    text: "As-tu déjà consommé seul(e), sans personne autour ?",
+    text: "As-tu déjà consommé seul·e, sans personne autour ?",
+    onlyIf: [
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -191,6 +234,18 @@ export const drogueQuestions: Question[] = [
   {
     id: "drogue-19",
     text: "As-tu déjà ressenti un manque ou une vraie dépendance ?",
+    onlyIf: [
+      { question: "drogue-01", minAnswerIndex: 1 },
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une légère envie passagère", points: 1 },
@@ -222,6 +277,17 @@ export const drogueQuestions: Question[] = [
   {
     id: "drogue-22",
     text: "La drogue a-t-elle déjà eu un impact réel sur ta vie (travail, études, relations) ?",
+    onlyIf: [
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Un léger contrecoup une fois", points: 1 },
@@ -232,8 +298,18 @@ export const drogueQuestions: Question[] = [
   {
     id: "drogue-23",
     text: "À quel âge as-tu touché à une drogue pour la première fois ?",
+    onlyIf: [
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
-      { label: "Jamais touché", points: 0 },
       { label: "Après 25 ans", points: 1 },
       { label: "Entre 21 et 25 ans", points: 2 },
       { label: "Entre 18 et 20 ans", points: 3 },
@@ -243,6 +319,17 @@ export const drogueQuestions: Question[] = [
   {
     id: "drogue-24",
     text: "As-tu déjà acheté de la drogue toi-même (à un dealer, en ligne) ?",
+    onlyIf: [
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 2 },
@@ -253,6 +340,17 @@ export const drogueQuestions: Question[] = [
   {
     id: "drogue-25",
     text: "As-tu déjà vécu un bad trip ou fini aux urgences à cause d'un produit ?",
+    onlyIf: [
+      { question: "drogue-02", minAnswerIndex: 1 },
+      { question: "drogue-26", minAnswerIndex: 1 },
+      { question: "drogue-05", minAnswerIndex: 1 },
+      { question: "drogue-06", minAnswerIndex: 1 },
+      { question: "drogue-07", minAnswerIndex: 1 },
+      { question: "drogue-10", minAnswerIndex: 1 },
+      { question: "drogue-11", minAnswerIndex: 1 },
+      { question: "drogue-12", minAnswerIndex: 1 },
+      { question: "drogue-13", minAnswerIndex: 1 },
+    ],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Un mauvais moment passager", points: 2 },

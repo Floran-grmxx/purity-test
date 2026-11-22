@@ -44,7 +44,7 @@ npm run typecheck  # vérification TypeScript
 
 ```
 src/
-  data/         types, catégories, banques de questions (20 × 5)
+  data/         types, catégories, banques de questions + prérequis logiques
   lib/          scoring, storage (localStorage), share (encode URL)
   state/        QuizContext (état + persistance)
   components/   ProgressBar, ScoreRing, CategoryBar, CategoryCard, Button, Page

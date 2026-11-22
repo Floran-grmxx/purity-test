@@ -14,6 +14,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-02",
     text: "À quelle fréquence bois-tu de l'alcool ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Quelques fois par an", points: 1 },
@@ -25,6 +26,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-03",
     text: "Combien de verres standard bois-tu lors d'une soirée typique ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Aucun", points: 0 },
       { label: "1 ou 2", points: 1 },
@@ -36,8 +38,9 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-04",
     text: "Combien de verres dans ta soirée la plus arrosée ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
-      { label: "Aucun", points: 0 },
+      { label: "1 ou 2", points: 0 },
       { label: "3 à 5", points: 1 },
       { label: "6 à 10", points: 2 },
       { label: "11 à 15", points: 3 },
@@ -47,6 +50,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-05",
     text: "À quel âge as-tu pris ta première vraie cuite ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "18 ans ou plus", points: 1 },
@@ -57,6 +61,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-06",
     text: "À quelle fréquence te retrouves-tu vraiment ivre (bourré·e) ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Quelques fois par an", points: 1 },
@@ -68,6 +73,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-07",
     text: "As-tu déjà eu un trou noir (blackout) après avoir bu ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 2 },
@@ -80,7 +86,7 @@ export const alcoolQuestions: Question[] = [
     text: "Combien de fois t'es-tu réveillé·e sans aucun souvenir de la veille ?",
     requires: { question: "alcool-07", minAnswerIndex: 1 },
     answers: [
-      { label: "Aucune, je me souviens toujours", points: 0 },
+      { label: "Jamais tout, il me reste des bribes", points: 0 },
       { label: "1 ou 2 fois", points: 2 },
       { label: "Moins de 10 fois", points: 4 },
       { label: "Moins de 25 fois", points: 6 },
@@ -101,6 +107,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-10",
     text: "As-tu déjà vomi à cause de l'alcool ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -111,6 +118,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-11",
     text: "As-tu déjà bu jusqu'à ne plus tenir debout ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -121,6 +129,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-12",
     text: "À quelle fréquence participes-tu à des jeux à boire (beer pong, etc.) ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Quelques fois par an", points: 1 },
@@ -131,6 +140,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-13",
     text: "As-tu déjà dit ou fait une grosse honte en étant bourré·e ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -141,6 +151,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-14",
     text: "As-tu déjà envoyé un message ou passé un appel gênant en étant bourré·e ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -151,6 +162,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-15",
     text: "As-tu déjà eu une gueule de bois qui a duré plus d'une journée entière ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -161,6 +173,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-16",
     text: "As-tu déjà raté un cours, un boulot ou un rendez-vous important à cause d'une cuite ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -171,6 +184,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-17",
     text: "As-tu déjà conduit un véhicule après avoir bu ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 2 },
@@ -204,6 +218,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-20",
     text: "As-tu déjà bu seul·e, sans occasion particulière ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -226,7 +241,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-22",
     text: "As-tu déjà repris un verre le lendemain matin pour faire passer la gueule de bois ?",
-    requires: { question: "alcool-20", minAnswerIndex: 1 },
+    requires: { question: "alcool-01", minAnswerIndex: 2 },
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 3 },
@@ -237,6 +252,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-23",
     text: "As-tu déjà bu de l'alcool fort cul sec (shots) plusieurs fois dans la même soirée ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -247,6 +263,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-24",
     text: "As-tu déjà enchaîné plusieurs jours de suite à boire de façon importante ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "Une fois", points: 1 },
@@ -257,6 +274,7 @@ export const alcoolQuestions: Question[] = [
   {
     id: "alcool-25",
     text: "T'a-t-on déjà dit que tu buvais trop, ou as-tu déjà essayé de réduire sans y arriver ?",
+    onlyIf: [{ question: "alcool-01", minAnswerIndex: 1 }],
     answers: [
       { label: "Jamais", points: 0 },
       { label: "On me l'a dit une fois", points: 1 },

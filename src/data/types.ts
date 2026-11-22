@@ -25,6 +25,13 @@ export interface Question {
   answers: Answer[];
   /** when set, the question is a conditional follow-up gated by another answer */
   requires?: QuestionGate;
+  /**
+   * Logical prerequisite: the question only makes sense when at least one of
+   * these gates is met (e.g. no alcohol questions for someone who never drank).
+   * Unlike `requires`, it hides a regular question rather than unlocking a
+   * follow-up. Gateways must be declared earlier in the same category.
+   */
+  onlyIf?: QuestionGate[];
 }
 
 export interface Category {

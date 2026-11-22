@@ -1,14 +1,13 @@
 # SUIVI — Purity Test
 
 ## 🧭 Ligne directrice
-*(maj 2026-06-17)* — **v1 EN LIGNE** : https://gourmaxx.github.io/purity-test/
-(repo public `Gourmaxx/purity-test`, déploiement auto via GitHub Actions à chaque
-push sur `main`). PWA installable, scoring /500, partage par lien. **Nouveau
-(déployé le 2026-06-17)** : questions **conditionnelles** (une réponse « expérimentée »
-débloque des questions de suivi ciblées, ex. BDSM) + **échelles de réponses
-variables** (4–6 options chiffrées, plus seulement 4). **125 questions** (99 base +
-26 conditionnelles), **45/45 tests verts**, build propre. **Prochaine priorité** :
-vérif visuelle sur téléphone (+ install PWA) et choix du nom définitif.
+*(maj 2026-11-22)* — **v1 EN LIGNE** : https://floran-grmxx.github.io/purity-test/
+(repo public `Floran-grmxx/purity-test`, déploiement auto à chaque push sur `main`).
+**Nouveau (pushé le 2026-11-22)** : **prérequis logiques** `onlyIf` — une réponse
+« jamais » masque les questions qui n'ont plus de sens (jamais bu → plus de questions
+alcool, aucune drogue → plus de questions d'usage, pas de rapport → plus de questions
+sur les rapports) + correction des tranches de réponses. **54/54 tests verts**, build
+propre. **Prochaine priorité** : vérif visuelle sur téléphone, choix du nom.
 
 ## ✅ Fait
 - [x] Cadrage (QCM pondéré, 5 catégories, ton sérieux + questions trash)
@@ -32,7 +31,15 @@ vérif visuelle sur téléphone (+ install PWA) et choix du nom définitif.
 - [x] **Échelles de réponses variables** (4–6 options, quantitatives) sur les 5 catégories
 - [x] Contenu réécrit par 5 sous-agents + tests de branchement (`lib/questions.test.ts`, 8) → **45 tests**
 
+- [x] Audit logique de tout le test + **prérequis `onlyIf`** (OU entre plusieurs
+  déclencheurs) sur sexe/drogue/alcool, tranches corrigées, choix contradictoires retirés → **54 tests**
+
+- [x] Doublons tranchés : `drogue-04` (ivresse, doublon alcool) → `drogue-26` drogues de
+  synthèse ; `drogue-08` (recoupait `drogue-16`) → `drogue-27` plus grosse conso en une soirée ;
+  `drogue-02` barème 0→5 (mois ≠ semaine)
+
 ## ⏳ Reste à faire
+- [x] Pusher l'audit logique (captures inchangées : pas de changement visuel)
 - [x] Déploiement statique → GitHub Pages (Actions, repo public)
 - [ ] Vérification visuelle réelle sur téléphone + install PWA
 - [x] Relecture/édition fine des questions (revue par 5 sous-agents + corrections appliquées)
@@ -58,3 +65,16 @@ vérif visuelle sur téléphone (+ install PWA) et choix du nom définitif.
 - **Gotcha test d'intégrité** : la règle « une option à 0 point » ne s'applique qu'aux
   questions de **base** ; une conditionnelle (déjà derrière une réponse expérimentée)
   peut démarrer > 0.
+- **Deux types de condition** : `requires` = question de **suivi** (débloque un
+  approfondissement) ; `onlyIf` = **prérequis logique** sur une question normale (la
+  masque si elle n'a pas de sens), liste = **OU** (ex. « au moins une drogue essayée »).
+  Une question `onlyIf` peut retirer son option « jamais » contradictoire (ex. nb de
+  partenaires après « déjà eu un rapport ») : le test de l'option à 0 pt ne s'y applique pas.
+- Conditions **intra-catégorie uniquement** → `hygiene-21` (se laver après un rapport)
+  a une option « Pas concerné·e » ajoutée **en dernier** (ne pas décaler les index déjà stockés).
+- **Gotcha shell** : `npx vitest run | grep …` a bloqué ; rediriger la sortie vers un fichier.
+- **Remplacer une question = nouvel id** (jamais réutiliser un id avec un autre sens) : les
+  réponses sont stockées par id dans le localStorage, un id inconnu est simplement ignoré.
+- **Workflow `.github/workflows/deploy.yml` indispensable** : Pages est en mode « workflow ».
+  Il avait été supprimé le 2026-07-06 (« unused ») → plus aucun déploiement jusqu'au
+  2026-11-22, où il a été restauré. Ne pas le supprimer.
