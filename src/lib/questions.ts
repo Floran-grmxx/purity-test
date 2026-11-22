@@ -64,8 +64,24 @@ export function allowedAnswerIndices(
 }
 
 /**
- * Drops stored answers that a later change made contradictory (e.g. the typical
- * night was raised above the recorded record), so the question is asked again.
+ * A question whose limits leave a single possible answer is answered
+ * automatically and never asked (it would be a pointless click).
+ */
+export function isAutoAnswered(
+  question: Question,
+  byId: Map<string, Question>,
+  answers: CategoryAnswers,
+): boolean {
+  return (
+    question.answers.length > 1 &&
+    allowedAnswerIndices(question, byId, answers).length === 1
+  );
+}
+
+/**
+ * Normalises stored answers: drops answers that a later change made
+ * contradictory (e.g. the typical night was raised above the recorded record),
+ * so the question is asked again, and fills in auto-answered questions.
  * Answers of hidden questions are kept, in case they get unlocked again.
  */
 export function sanitizeAnswers(
@@ -76,11 +92,24 @@ export function sanitizeAnswers(
   const clean: CategoryAnswers = {};
   for (const question of category.questions) {
     const chosen = answers[question.id];
-    if (chosen == null) continue;
-    const keep =
-      !isQuestionVisible(question, byId, clean) ||
-      allowedAnswerIndices(question, byId, clean).includes(chosen);
-    if (keep) clean[question.id] = chosen;
+    if (!isQuestionVisible(question, byId, clean)) {
+      if (chosen != null) clean[question.id] = chosen;
+      continue;
+    }
+    const allowed = allowedAnswerIndices(question, byId, clean);
+    if (isAutoAnswered(question, byId, clean)) clean[question.id] = allowed[0];
+    else if (chosen != null && allowed.includes(chosen)) clean[question.id] = chosen;
   }
   return clean;
+}
+
+/** Visible questions the player actually has to answer (auto-answered ones skipped). */
+export function askedQuestions(
+  category: Category,
+  answers: CategoryAnswers = {},
+): Question[] {
+  const byId = new Map(category.questions.map((q) => [q.id, q]));
+  return visibleQuestions(category, answers).filter(
+    (q) => !isAutoAnswered(q, byId, answers),
+  );
 }

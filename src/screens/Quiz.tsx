@@ -4,8 +4,8 @@ import { useQuiz } from "../state/QuizContext";
 import { getCategory } from "../data/categories";
 import {
   allowedAnswerIndices,
+  askedQuestions,
   sanitizeAnswers,
-  visibleQuestions,
 } from "../lib/questions";
 import type { CategoryId } from "../data/types";
 import { Page } from "../components/Page";
@@ -21,7 +21,7 @@ export function Quiz() {
   const catAnswers = category ? sanitizeAnswers(category, answers[category.id]) : {};
 
   // The list of shown questions grows/shrinks as gateway answers unlock follow-ups.
-  const visible = category ? visibleQuestions(category, catAnswers) : [];
+  const visible = category ? askedQuestions(category, catAnswers) : [];
 
   // Start on the first unanswered visible question (or the first one).
   const [index, setIndex] = useState(() => {
@@ -48,7 +48,7 @@ export function Quiz() {
     const nextAnswers = sanitizeAnswers(category, rawNextAnswers);
     // Recompute visibility against the freshly chosen answer so a just-unlocked
     // follow-up (inserted right after its gateway) becomes the next question.
-    const nextVisible = visibleQuestions(category, nextAnswers);
+    const nextVisible = askedQuestions(category, nextAnswers);
     const pos = nextVisible.findIndex((q) => q.id === answeredId);
     if (pos !== -1 && pos < nextVisible.length - 1) {
       setIndex(pos + 1);

@@ -1,6 +1,11 @@
 import { describe, it, expect } from "vitest";
 import type { Category } from "../data/types";
-import { allowedAnswerIndices, sanitizeAnswers, visibleQuestions } from "./questions";
+import {
+  allowedAnswerIndices,
+  askedQuestions,
+  sanitizeAnswers,
+  visibleQuestions,
+} from "./questions";
 import { scoreCategory } from "./scoring";
 
 /** Synthetic category: one gateway + a follow-up gated on its non-innocent answer. */
@@ -191,5 +196,18 @@ describe("answer limits", () => {
   it("drops a stored answer that became contradictory", () => {
     expect(sanitizeAnswers(category, { typical: 1, record: 0 })).toEqual({ typical: 1 });
     expect(sanitizeAnswers(category, { typical: 1, record: 2 })).toEqual({ typical: 1, record: 2 });
+  });
+
+  it("answers and skips a question left with a single possible answer", () => {
+    const narrowed: Category = {
+      ...category,
+      questions: [
+        category.questions[0],
+        { ...record, answerLimits: [{ question: "typical", allowed: { 1: [2] } }] },
+      ],
+    };
+    expect(sanitizeAnswers(narrowed, { typical: 1 })).toEqual({ typical: 1, record: 2 });
+    expect(askedQuestions(narrowed, { typical: 1 }).map((q) => q.id)).toEqual(["typical"]);
+    expect(askedQuestions(narrowed, { typical: 0 }).map((q) => q.id)).toEqual(["typical", "record"]);
   });
 });
