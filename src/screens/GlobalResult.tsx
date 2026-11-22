@@ -10,9 +10,10 @@ import { ScoreRing } from "../components/ScoreRing";
 import { CategoryBar } from "../components/CategoryBar";
 import { SharePanel } from "../components/SharePanel";
 import { buildPortrait } from "../lib/portrait";
+import { formatDuration } from "../lib/timing";
 
 export function GlobalResult() {
-  const { answers, resetAll } = useQuiz();
+  const { answers, elapsedMs, resetAll } = useQuiz();
   const result = scoreAll(answers);
   const [sharing, setSharing] = useState(false);
 
@@ -25,6 +26,8 @@ export function GlobalResult() {
   const shareUrl = `${window.location.origin}${window.location.pathname}#/partage?d=${encodeResult(
     scoreById as ScoreMap,
   )}`;
+  const totalElapsedMs = Object.values(elapsedMs).reduce((sum, ms) => sum + (ms ?? 0), 0);
+  const answeredCount = result.perCategory.reduce((sum, r) => sum + r.answered, 0);
   const portrait = buildPortrait(scoreById as ScoreMap, answers);
   const shareText = `Mon Purity Test : ${result.total}/${result.maxTotal} — ${result.profile?.title}. Et toi ?`;
 
@@ -69,6 +72,12 @@ export function GlobalResult() {
           />
         ))}
       </div>
+
+      {totalElapsedMs > 0 && (
+        <p className="mt-4 text-center text-sm text-[var(--color-muted)]">
+          ⏱️ Tu as mis {formatDuration(totalElapsedMs)} pour répondre aux {answeredCount} questions.
+        </p>
+      )}
 
       <section className="mt-6 space-y-3 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5 text-[0.95rem] leading-relaxed">
         <h2 className="text-lg font-bold">Ton portrait</h2>

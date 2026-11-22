@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams, Link } from "react-router-dom";
 import { useQuiz } from "../state/QuizContext";
 import { getCategory } from "../data/categories";
@@ -15,7 +15,12 @@ export function Quiz() {
   const { categoryId } = useParams();
   const category = getCategory(categoryId);
   const navigate = useNavigate();
-  const { answers, setAnswer } = useQuiz();
+  const { answers, setAnswer, markActivity } = useQuiz();
+
+  // Answering time starts counting when the quiz screen opens.
+  useEffect(() => {
+    markActivity();
+  }, [categoryId, markActivity]);
 
   // Contradictory answers (see `answerLimits`) count as unanswered.
   const catAnswers = category ? sanitizeAnswers(category, answers[category.id]) : {};

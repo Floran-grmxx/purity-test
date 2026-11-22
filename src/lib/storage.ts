@@ -1,9 +1,27 @@
-import type { AnswersByCategory } from "../data/types";
+import type { AnswersByCategory, CategoryId } from "../data/types";
 
 const KEY = "purity-test:v1";
 
+/** active answering time per category, in milliseconds */
+export type ElapsedByCategory = Partial<Record<CategoryId, number>>;
+
 export interface StoredState {
   answers: AnswersByCategory;
+  elapsedMs: ElapsedByCategory;
+}
+
+const EMPTY_STATE: StoredState = { answers: {}, elapsedMs: {} };
+
+/** Keeps only finite, non-negative durations (older saves have none). */
+function readElapsed(value: unknown): ElapsedByCategory {
+  if (!isPlainObject(value)) return {};
+  const elapsed: ElapsedByCategory = {};
+  for (const [id, ms] of Object.entries(value)) {
+    if (typeof ms === "number" && Number.isFinite(ms) && ms >= 0) {
+      elapsed[id as CategoryId] = ms;
+    }
+  }
+  return elapsed;
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -14,14 +32,17 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
 export function loadState(): StoredState {
   try {
     const raw = localStorage.getItem(KEY);
-    if (!raw) return { answers: {} };
+    if (!raw) return EMPTY_STATE;
     const parsed: unknown = JSON.parse(raw);
     if (!isPlainObject(parsed) || !isPlainObject(parsed.answers)) {
-      return { answers: {} };
+      return EMPTY_STATE;
     }
-    return { answers: parsed.answers as AnswersByCategory };
+    return {
+      answers: parsed.answers as AnswersByCategory,
+      elapsedMs: readElapsed(parsed.elapsedMs),
+    };
   } catch {
-    return { answers: {} };
+    return EMPTY_STATE;
   }
 }
 

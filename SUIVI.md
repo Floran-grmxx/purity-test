@@ -5,8 +5,8 @@
 (repo public `Floran-grmxx/purity-test`, déploiement auto à chaque push sur `main`).
 **Nouveau (pushé le 2026-11-22)** : réponses contradictoires masquées (`answerLimits`),
 comptages chiffrés, questions de fréquence au passé, **portrait** texte sous les résultats
-(aussi sur la page partagée, version scores seuls), **partage par QR code**. **69/69 tests
-verts**, build propre. Questions à un seul choix possible répondues automatiquement.
+(aussi sur la page partagée, version scores seuls), **partage par QR code**. **72/72 tests
+verts**, build propre. Questions à un seul choix répondues automatiquement, temps de réponse affiché.
 **Prochaine priorité** : vérif sur téléphone (scan du QR), choix du nom.
 
 ## ✅ Fait
@@ -40,6 +40,7 @@ verts**, build propre. Questions à un seul choix possible répondues automatiqu
 
 - [x] Réponses contradictoires masquées + comptages chiffrés + fréquences au passé
 - [x] Portrait texte (résultat perso + page partagée) et panneau de partage QR / lien
+- [x] Temps de réponse affiché sur le résultat global (temps actif, pauses > 2 min plafonnées)
 - [x] Questions réduites à un seul choix : répondues automatiquement et sautées (`isAutoAnswered`)
 - [x] Lien « About » du repo corrigé (pointait vers l'ancien compte gourmaxx.github.io)
 
