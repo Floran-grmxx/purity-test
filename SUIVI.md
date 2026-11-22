@@ -50,7 +50,7 @@ verts**, build propre. Questions à un seul choix répondues automatiquement, te
 - [ ] Vérification visuelle réelle sur téléphone + install PWA
 - [x] Relecture/édition fine des questions (revue par 5 sous-agents + corrections appliquées)
 - [ ] Choisir le nom définitif (actuel : « Purity Test »)
-- [ ] (Option) Générer des icônes PNG en plus du SVG pour l'installabilité
+- [x] Icônes PNG (192, 512, maskable 512, apple-touch 180) générées depuis les SVG et déclarées
 
 ## 📋 Notes / gotchas
 - **Questions de fréquence = au passé inclusif** (« au plus fort de ta consommation… ») pour que les ex-consommateurs puissent répondre. Ne jamais formuler une fréquence au présent seul. Garder l'ordre des réponses (les gates `minAnswerIndex` en dépendent).
