@@ -29,7 +29,7 @@ export function GlobalResult() {
   const totalElapsedMs = Object.values(elapsedMs).reduce((sum, ms) => sum + (ms ?? 0), 0);
   const answeredCount = result.perCategory.reduce((sum, r) => sum + r.answered, 0);
   const portrait = buildPortrait(scoreById as ScoreMap, answers);
-  const shareText = `Mon Purity Test : ${result.total}/${result.maxTotal} — ${result.profile?.title}. Et toi ?`;
+  const shareText = `Mon score au Confessionnal : ${result.total}/${result.maxTotal} — ${result.profile?.title}. Et toi ?`;
 
   return (
     <Page>

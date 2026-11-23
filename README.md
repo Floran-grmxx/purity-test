@@ -1,4 +1,4 @@
-# Purity Test
+# Confessionnal — Test de pureté
 
 Web app mobile-first (PWA) — un **test d'expérience** en 5 catégories
 indépendantes : sexe, drogue, alcool, moral, hygiène. QCM pondéré, ton cru et

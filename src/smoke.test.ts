@@ -29,7 +29,7 @@ function mount(path: string): string {
 
 describe("app renders without crashing", () => {
   it("renders Home", () => {
-    expect(mount("/")).toContain("Purity Test");
+    expect(mount("/")).toContain("Confessionnal");
   });
 
   it("renders the Hub", () => {

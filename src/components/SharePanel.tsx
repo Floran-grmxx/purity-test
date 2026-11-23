@@ -41,7 +41,7 @@ export function SharePanel({ url, text, onClose }: SharePanelProps) {
 
   async function shareNatively() {
     try {
-      await navigator.share({ title: "Purity Test", text, url });
+      await navigator.share({ title: "Confessionnal", text, url });
     } catch {
       // user cancelled the share sheet — ignore
     }

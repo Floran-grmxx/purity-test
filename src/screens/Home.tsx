@@ -17,7 +17,10 @@ export function Home() {
             <span key={c.id}>{c.emoji}</span>
           ))}
         </div>
-        <h1 className="text-4xl font-black tracking-tight">Purity Test</h1>
+        <h1 className="text-4xl font-black uppercase tracking-tight">Confessionnal</h1>
+        <p className="mt-1 text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">
+          Test de pureté
+        </p>
         <p className="mt-3 text-[var(--color-muted)]">
           5 tests, 100+ questions, zéro tabou.
           <br />

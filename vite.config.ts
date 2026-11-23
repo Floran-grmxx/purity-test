@@ -13,8 +13,8 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["icon.svg", "icon-maskable.svg", "apple-touch-icon.png"],
       manifest: {
-        name: "Purity Test",
-        short_name: "Purity",
+        name: "Confessionnal — Test de pureté",
+        short_name: "Confessionnal",
         description:
           "Test d'expérience : sexe, drogue, alcool, moral, hygiène. 100% privé.",
         lang: "fr",

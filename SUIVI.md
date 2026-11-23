@@ -1,13 +1,14 @@
-# SUIVI — Purity Test
+# SUIVI — Confessionnal (test de pureté)
 
 ## 🧭 Ligne directrice
-*(maj 2026-11-22)* — **v1 EN LIGNE** : https://floran-grmxx.github.io/purity-test/
+*(maj 2026-11-23)* — **v1 EN LIGNE** : https://floran-grmxx.github.io/purity-test/
 (repo public `Floran-grmxx/purity-test`, déploiement auto à chaque push sur `main`).
 **Nouveau (pushé le 2026-11-22)** : réponses contradictoires masquées (`answerLimits`),
 comptages chiffrés, questions de fréquence au passé, **portrait** texte sous les résultats
 (aussi sur la page partagée, version scores seuls), **partage par QR code**. **72/72 tests
 verts**, build propre. Questions à un seul choix répondues automatiquement, temps de réponse affiché.
-**Prochaine priorité** : vérif sur téléphone (scan du QR), choix du nom.
+**Nom définitif : « Confessionnal »** (sous-titre « Test de pureté », icône « C »).
+**Prochaine priorité** : vérif sur téléphone (scan du QR, install PWA).
 
 ## ✅ Fait
 - [x] Cadrage (QCM pondéré, 5 catégories, ton sérieux + questions trash)
@@ -49,7 +50,7 @@ verts**, build propre. Questions à un seul choix répondues automatiquement, te
 - [x] Déploiement statique → GitHub Pages (Actions, repo public)
 - [ ] Vérification visuelle réelle sur téléphone + install PWA
 - [x] Relecture/édition fine des questions (revue par 5 sous-agents + corrections appliquées)
-- [ ] Choisir le nom définitif (actuel : « Purity Test »)
+- [x] Nom définitif : « Confessionnal » + sous-titre « Test de pureté » (nom affiché seulement)
 - [x] Icônes PNG (192, 512, maskable 512, apple-touch 180) générées depuis les SVG et déclarées
 
 ## 📋 Notes / gotchas
@@ -57,6 +58,7 @@ verts**, build propre. Questions à un seul choix répondues automatiquement, te
 - **Chaîne alcool** : `alcool-01`≥« Plusieurs fois » débloque cuite/vomi/jeux/shots/binge ; `alcool-05` (« première cuite » ≠ Jamais) débloque ivresse, blackout, honte, gueule de bois, verre du lendemain. Masquer = 0 pt = même score que « Jamais ». Tester avec des profils simulés (1re / 2e / milieu / dernière réponse) après chaque changement de gates.
 - **Réponse `notApplicable: true`** (« Pas concerné·e ») : la question sort du score (ni gagnés ni max). Doit valoir 0 pt. Utilisé par hygiene-21. `drogue-16` (nombre de substances) supprimée car elle contredisait les réponses précédentes.
 - **`answerLimits`** : masque les réponses qui contrediraient une réponse précédente (ex. record de verres ≥ soirée normale, ivresse ≤ fréquence de consommation). Une réponse stockée devenue contradictoire est ignorée (`sanitizeAnswers`) et la question est reposée. Échelle de comptage standard : `Jamais | 1 fois | 2 à 10 fois | Plus de 10 fois` (garder 4 réponses pour ne pas décaler les index des gates).
+- **Renommage = nom affiché seulement** : le repo et l'URL restent `purity-test` (renommer casserait les liens/QR déjà partagés et le `base` Vite).
 - Sens du score : **haut = expérimenté**, bas = innocent.
 - Score global = **somme** des 5 catégories (/100 chacune) → **/500**.
 - Spec à plat dans `docs/` (préférence utilisateur).
