@@ -1,35 +1,35 @@
-# Confessionnal — Test de pureté
+# Confessionnal — Purity Test
 
-Web app mobile-first (PWA) — un **test d'expérience** en 5 catégories
-indépendantes : sexe, drogue, alcool, moral, hygiène. QCM pondéré, ton cru et
-sans tabou. **Haut = expérimenté**, bas = innocent.
+Mobile-first web app (PWA) — an **experience test** across 5 independent
+categories: sex, drugs, alcohol, morals, hygiene. Weighted multiple-choice
+quiz, raw and unfiltered tone. **High = experienced**, low = innocent.
 
-100 % côté client : aucune donnée n'est envoyée, aucun compte. La progression
-est sauvegardée en `localStorage` et le partage passe par un lien encodé.
+100% client-side: no data is sent, no account. Progress is saved in
+`localStorage` and sharing works through an encoded link.
 
-▶️ [Essayer en ligne](https://floran-grmxx.github.io/purity-test/)
+▶️ [Try it online](https://floran-grmxx.github.io/purity-test/)
 
-## Captures
+## Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/01-home.png" width="250" alt="Écran d'accueil">
-  <img src="docs/screenshots/02-categories.png" width="250" alt="Choix des catégories avec la progression">
-  <img src="docs/screenshots/03-question.png" width="250" alt="Écran de question">
-  <img src="docs/screenshots/04-results.png" width="250" alt="Score global et détail par catégorie">
+  <img src="docs/screenshots/01-home.png" width="250" alt="Home screen">
+  <img src="docs/screenshots/02-categories.png" width="250" alt="Category selection with progress">
+  <img src="docs/screenshots/03-question.png" width="250" alt="Question screen">
+  <img src="docs/screenshots/04-results.png" width="250" alt="Overall score and per-category breakdown">
 </p>
 
 ## Scoring
 
-- Chaque catégorie : `points obtenus / points max × 100` → **/100**.
-- Score global : somme des 5 catégories → **/500**.
-- Un titre de profil est attribué selon la tranche globale.
+- Each category: `points obtenus / points max × 100` → **/100**.
+- Overall score: sum of the 5 categories → **/500**.
+- A profile title is assigned based on the overall range.
 
 ## Stack
 
 React 19 · Vite 6 · TypeScript · Tailwind CSS v4 · React Router (HashRouter) ·
 vite-plugin-pwa · Vitest.
 
-## Commandes
+## Commands
 
 ```bash
 npm install        # installer les dépendances
@@ -51,13 +51,12 @@ src/
   screens/      Home, Hub, Quiz, CategoryResult, GlobalResult, SharedResult
 ```
 
-## Déploiement
+## Deployment
 
-Build statique (`dist/`) déployable sur Vercel / Netlify / GitHub Pages.
-L'app utilise `HashRouter`, donc aucune config de réécriture serveur n'est
-nécessaire. Pour GitHub Pages dans un sous-chemin, définir `base` dans
-`vite.config.ts`.
+Static build (`dist/`) deployable on Vercel / Netlify / GitHub Pages.
+The app uses `HashRouter`, so no server rewrite config is needed.
+For GitHub Pages under a subpath, set `base` in `vite.config.ts`.
 
-## Avertissement
+## Disclaimer
 
-Contenu réservé aux adultes (18+), à but de divertissement, sans jugement.
+Adults only (18+), for entertainment purposes, no judgment.
